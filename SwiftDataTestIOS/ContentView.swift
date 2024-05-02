@@ -7,18 +7,67 @@
 
 import SwiftUI
 
+
+
+
+
+
+
 struct ContentView: View {
+    
+    @ObservedObject var data: Datastore
+    
+    
+    
+    
+    
+    @State var activateRootlink = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        NavigationView {
+            List {
+                
+                
+                ForEach(Array(data.storeArray.enumerated()), id: \.element.id) { index, item in
+                    
+                    NavigationLink(destination: ItemInfo(data: data, index: index)) {
+                        Cell(reminder: item)
+                    }
+
+                    
+                }
+                
+            }
+            .navigationTitle(Text("title"))
+            .toolbar {
+                NavigationLink(destination: {
+                    
+                    CreateItem(data: data)
+                    
+                    
+                    
+                    
+                }, label: {
+                    Image(systemName: "plus.app")
+                })
+            }
+            
         }
-        .padding()
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
+    
+    
 }
 
 #Preview {
-    ContentView()
+    ContentView(data: Datastore())
 }

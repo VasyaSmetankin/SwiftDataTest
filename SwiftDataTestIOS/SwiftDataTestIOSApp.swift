@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct SwiftDataTestIOSApp: App {
+    
+    var dataStore = Datastore()
+    
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            ContentView(data: dataStore)
+            
         }
     }
 }

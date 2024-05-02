@@ -1,0 +1,98 @@
+//
+//  Reminder.swift
+//  SwiftDataTestIOS
+//
+//  Created by Vasya Smetankin on 30.04.2024.
+//
+
+
+
+
+import Foundation
+
+
+
+
+
+enum Completion {
+    case green
+    case yellow
+    case red
+    
+}
+
+
+
+
+struct Reminder: Identifiable {
+    
+    
+    
+    var id = UUID()
+    var title: String
+    
+    var description: String
+    
+    var completion: Completion
+    
+    
+    
+    
+    init(title: String, description: String, completion: Completion) {
+        self.title = title
+        self.completion = completion
+        self.description = description
+    }
+    
+    init() {
+        self.title = ""
+        self.completion = .red
+        self.description = ""
+        
+    }
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+final class Datastore: ObservableObject, Identifiable {
+    
+    
+    @Published var storeArray: [Reminder] = []
+    
+    
+    
+    
+    init() {
+        
+        self.generateReminderPlaceholders()
+    }
+    
+    
+    
+    func generateReminderPlaceholders()  {
+        
+        
+        
+        
+        let placeholders: [Reminder] = [
+            Reminder(title: "Meeting", description: "Discuss project progress", completion: .green),
+            Reminder(title: "Call", description: "Call client for follow-up", completion: .yellow),
+            Reminder(title: "Deadline", description: "Submit report by EOD", completion: .red)
+        ]
+        
+        
+        storeArray += placeholders
+        
+    }
+    
+    
+    
+    
+}
