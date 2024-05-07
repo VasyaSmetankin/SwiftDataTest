@@ -11,7 +11,7 @@ struct Cell: View {
     
     
     
-    
+    @State private var isLongPressTapped = false
     
     
     var reminder: Reminder
@@ -33,11 +33,19 @@ struct Cell: View {
     }
     
     
+    
+    
+    func transformOnLongPress() {
+        print("set")
+    }
+    
+    
     var body: some View {
         
         
         
         HStack {
+            
             Text(reminder.title)
             
             Spacer()
@@ -47,6 +55,7 @@ struct Cell: View {
             Circle()
                 .frame(width: 10, height: 10)
                 .foregroundStyle(color)
+                
             
             
             
@@ -55,6 +64,7 @@ struct Cell: View {
             
         }
         
+
     }
 }
 

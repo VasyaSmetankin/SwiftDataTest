@@ -8,21 +8,13 @@
 import SwiftUI
 
 
-
-
-
-
-
 struct ContentView: View {
     
     @ObservedObject var data: Datastore
-    
-    
-    
-    
-    
     @State var activateRootlink = false
     
+    
+
     var body: some View {
         
         NavigationView {
@@ -30,38 +22,40 @@ struct ContentView: View {
                 
                 
                 ForEach(Array(data.storeArray.enumerated()), id: \.element.id) { index, item in
-                    
-                    NavigationLink(destination: ItemInfo(data: data, index: index)) {
-                        Cell(reminder: item)
-                    }
 
-                    
+                    ZStack {
+                        
+                        
+                        
+                       
+                        
+                        
+                        Cell(reminder: item)
+
+                        NavigationLink(destination: ItemInfo(data: data, index: index)) {
+                            
+                            
+                        }
+                        .opacity(0)
+                    }
                 }
+                .onDelete(perform: { indexSet in
+                    data.storeArray.remove(atOffsets: indexSet)
+                })
                 
             }
+            .listStyle(.plain)
             .navigationTitle(Text("title"))
             .toolbar {
                 NavigationLink(destination: {
                     
                     CreateItem(data: data)
-                    
-                    
-                    
-                    
                 }, label: {
                     Image(systemName: "plus.app")
                 })
             }
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
         
     }
     

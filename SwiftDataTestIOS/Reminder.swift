@@ -15,9 +15,44 @@ import Foundation
 
 
 enum Completion {
-    case green
+    case green 
     case yellow
     case red
+    
+    
+    
+    
+    func selectedValueToString() -> String {
+        
+        switch self {
+            
+        case .green:
+            return "green"
+        case .yellow:
+            return "yellow"
+        case .red:
+            return "red"
+        }
+        
+        
+    }
+    
+    
+    func stringToSelectedValue(string: String) -> Completion {
+        
+        
+        
+        switch string {
+        case "red":
+            return .red
+        case "yellow":
+            return .yellow
+        case "green":
+            return .green
+        default:
+            return .red
+        }
+    }
     
 }
 

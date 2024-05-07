@@ -22,23 +22,27 @@ struct ItemInfo: View {
     
     
     
+    @State private var itemTitle = ""
+    @State private var itemDescription = ""
+    
+    
+    var pickerValues = ["red", "yellow", "green"]
+    @State private var selectedColor = "yellow"
     
     
     
-    private func setCompetion(item: Reminder) -> String {
-        
-        
-        switch item.completion {
-            
-        case .green:
-            return "green"
-        case .yellow:
-            return "yellow"
-        case .red:
-            return "red"
-        }
+    func emptyCheck(_ string: String) -> String {
 
+        if string.isEmpty {
+            return "empty"
+            
+        } else {
+            return string
+        }
+        
     }
+    
+
     
     
     var body: some View {
@@ -50,16 +54,45 @@ struct ItemInfo: View {
             
             
             
+            TextField("title", text: $itemTitle)
+                .textFieldStyle(.roundedBorder)
+            TextField("description", text: $itemDescription)
+                .textFieldStyle(.roundedBorder)
             
-            Text(item.id.uuidString)
-            Text(item.title)
-            Text(item.description)
-            Text(setCompetion(item: item))
+            
+            
+            Picker("value", selection: $selectedColor) {
+                ForEach(pickerValues, id: \.self) { item in
+                    Text(item)
+                }
+                
+            }
+            .pickerStyle(.inline)
+                
+            
+            
+            
+            
         }
         .onAppear {
-            
-            
+
             item = data.storeArray[index]
+            
+            itemTitle = item.title
+            
+            itemDescription = item.description
+            
+            selectedColor = item.completion.selectedValueToString()
+            
+            
+        }
+        .onDisappear {
+            
+            data.storeArray[index] = Reminder(
+                title: emptyCheck(itemTitle),
+                description: emptyCheck(itemDescription),
+                completion: item.completion.stringToSelectedValue(string: selectedColor)
+            )
             
         }
     }
