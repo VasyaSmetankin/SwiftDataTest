@@ -80,11 +80,16 @@ struct Reminder: Identifiable {
     }
     
     init() {
-        self.title = ""
+        self.title = "idle title"
         self.completion = .red
-        self.description = ""
+        self.description = "idle description"
         
     }
+    
+    
+    
+    
+    
     
     
     

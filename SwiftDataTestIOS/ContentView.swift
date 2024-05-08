@@ -14,7 +14,9 @@ struct ContentView: View {
     @State var activateRootlink = false
     
     
+    
 
+    
     var body: some View {
         
         NavigationView {
@@ -22,29 +24,44 @@ struct ContentView: View {
                 
                 
                 ForEach(Array(data.storeArray.enumerated()), id: \.element.id) { index, item in
+                    
+                    
+                    
+                    
+                    //Cell(reminder: item)
 
-                    ZStack {
-                        
-                        
-                        
-                       
-                        
-                        
-                        Cell(reminder: item)
-
+                    // MARK: -  SHOULD WORK
+                    DisclosureGroup {
+                        Text(item.description)
+                            .font(.caption)
+                            .foregroundStyle(Color.gray)
+                            .padding(.horizontal, -15)
+                    } label: {
                         NavigationLink(destination: ItemInfo(data: data, index: index)) {
-                            
-                            
+
+                            Cell(reminder: item)
                         }
-                        .opacity(0)
                     }
+                    
+                    
+                    
+                    
+                    // navlink inside disclosuregroup, not dicslosuregroup inside navlink
+                    
+
+//                    NavigationLink(destination: ItemInfo(data: data, index: index)) {
+//                        
+//                        Cell(reminder: item)
+//                    }
+                    
+                    
                 }
                 .onDelete(perform: { indexSet in
                     data.storeArray.remove(atOffsets: indexSet)
                 })
                 
             }
-            .listStyle(.plain)
+
             .navigationTitle(Text("title"))
             .toolbar {
                 NavigationLink(destination: {
